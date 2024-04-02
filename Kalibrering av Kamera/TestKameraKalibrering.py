@@ -22,7 +22,7 @@ cap = cv2.VideoCapture(1)  # Just as an example, try 2, 3, 4, etc.
 
 
 ret, frame = cap.read()
-print(frame.shape)
+
 while True:
     ret, frame = cap.read()  # Read one frame from the webcam
     
@@ -32,8 +32,6 @@ while True:
     img = frame.copy()
     h, w = frame.shape[:2]
     newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
-
-    dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
 
     mapx, mapy = cv2.initUndistortRectifyMap(mtx, dist, None, newcameramtx, (w,h), 5)
     dst = cv2.remap(img, mapx, mapy, cv2.INTER_LINEAR)
